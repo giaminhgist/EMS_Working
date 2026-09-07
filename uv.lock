@@ -166,7 +166,7 @@ wheels = [
 ]
 
 [[package]]
-name = "ems-minh"
+name = "ems-project"
 version = "0.2.0"
 source = { virtual = "." }
 dependencies = [

@@ -12,7 +12,7 @@ per-subject logistic probe (stratified 4-fold inner CV over subjects) gives a
 per-stimulus AUC; report mean AUC per stimulus category, comparing
 z-deviation vs standardized raw features.
 
-Usage (from EMS-Minh/src):
+Usage (from EMS-Project/src):
     python evaluation/category_probe.py
 """
 import sys

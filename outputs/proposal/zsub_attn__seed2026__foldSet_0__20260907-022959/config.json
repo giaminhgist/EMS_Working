@@ -1,0 +1,16 @@
+{
+  "proposal": "proposal",
+  "ablation": "zsub_attn",
+  "seed": 2026,
+  "fold": "Set_0",
+  "epochs": 150,
+  "patience": 30,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "batch_size": 16,
+  "dropout": 0.3,
+  "extra": {
+    "comparator": "zsub",
+    "pool": "attention"
+  }
+}

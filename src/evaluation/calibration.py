@@ -9,7 +9,7 @@ Method: pool the 4 official folds' val predictions (each out-of-fold), bin
 probabilities into 10 equal-width bins, compute expected calibration error
 (ECE) and Brier score.
 
-Usage (from EMS-Minh/src):
+Usage (from EMS-Project/src):
     python evaluation/calibration.py --runs proposal/z_mean proposal/diff_mean proposal/mlp_attn
 """
 import argparse

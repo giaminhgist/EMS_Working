@@ -8,7 +8,7 @@ Two modes (never touches the official-test labels, which are withheld):
   official: retrain on all 160 labelled subjects, produce probabilities for
             the 48 official test subjects (Test_000..047, labels unknown).
 
-Usage (from EMS-Minh/src):
+Usage (from EMS-Project/src):
     python test_model/eval.py --proposal proposal --ablation mlp_attn --mode heldout
     python test_model/eval.py --proposal proposal --ablation z_mean \\
         --deviation z --pool mean --mode heldout
@@ -26,7 +26,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # EMS-Minh/src
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # EMS-Project/src
 from data.common import (OUTPUTS, SEEDS_HELDOUT, protocol2_split,  # noqa: E402
                          load_metadata)
 from trainer.trainer import train_model, _evaluate  # noqa: E402

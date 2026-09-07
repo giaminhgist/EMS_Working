@@ -1,6 +1,6 @@
 """Train the main proposal (Learned Stimulus-Conditioned Normative Modeling).
 
-Usage (from EMS-Minh/src):
+Usage (from EMS-Project/src):
     python proposal/train.py --ablation mlp_attn --fold all
     python proposal/train.py --ablation sub_mean --comparator sub --pool mean --fold all
     python proposal/train.py --ablation mlp_norm01 --lambda_norm 0.1 --fold all
@@ -19,7 +19,7 @@ from pathlib import Path
 
 import torch
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # EMS-Minh/src
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # EMS-Project/src
 from data.common import official_folds  # noqa: E402
 from trainer.config import parse_args  # noqa: E402
 from trainer.trainer import train_model  # noqa: E402

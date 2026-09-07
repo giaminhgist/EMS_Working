@@ -1,7 +1,7 @@
 """Shared paths and utilities for EMS-Baseline baselines."""
 from pathlib import Path
 
-ROOT = Path("/root/EMS-Minh")
+ROOT = Path("/root/EMS-Project")
 PROCESSED = ROOT / "processed_dataset"
 RESULTS = ROOT / "docs" / "baseline" / "results"
 RESULTS.mkdir(parents=True, exist_ok=True)
@@ -11,7 +11,7 @@ THRESHOLD = 0.5
 NUM_STIMULI = 100
 CATEGORIES = ["social", "natural", "synthetic", "manipulated"]
 
-# stimulus filename prefix -> category (same mapping as EMS-Minh/src/common.py)
+# stimulus filename prefix -> category (same mapping as EMS-Project/src/common.py)
 PREFIX_CATEGORY = {
     "act": "social", "por": "social", "soc": "social",
     "ind": "natural", "land": "natural", "outman": "natural", "sat": "natural",

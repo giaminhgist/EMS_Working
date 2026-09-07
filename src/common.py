@@ -1,10 +1,10 @@
-"""Common constants and data-loading utilities for the EMS-Minh project."""
+"""Common constants and data-loading utilities for the EMS-Project project."""
 from pathlib import Path
 import glob
 import numpy as np
 import pandas as pd
 
-ROOT = Path("/root/EMS-Minh")
+ROOT = Path("/root/EMS-Project")
 RAW = ROOT / "original_dataset" / "EMS"
 TRAIN_FIX_DIR = RAW / "Train_Valid" / "Fixations"
 TEST_FIX_DIR = RAW / "Test" / "Fixations"

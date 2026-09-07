@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS-Project/outputs/proposal/mlp_norm01__seed2026__foldheldout_split__20260907-023139",
+  "best_epoch": 39,
+  "best_val_auc": 0.8933333333333334,
+  "val_metrics": {
+    "acc": 0.8,
+    "auc": 0.8933333333333334,
+    "balanced_acc": 0.8,
+    "sen": 0.6666666666666666,
+    "spe": 0.9333333333333333,
+    "f1": 0.7692307692307692,
+    "tp": 10,
+    "tn": 14,
+    "fp": 1,
+    "fn": 5
+  },
+  "epochs_trained": 70
+}

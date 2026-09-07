@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS-Project/outputs/proposal/mahal_mean__seed7__foldSet_1__20260907-023323",
+  "best_epoch": 0,
+  "best_val_auc": 0.8541666666666666,
+  "val_metrics": {
+    "acc": 0.5,
+    "auc": 0.8541666666666666,
+    "balanced_acc": 0.5729166666666666,
+    "sen": 0.9375,
+    "spe": 0.20833333333333334,
+    "f1": 0.6,
+    "tp": 15,
+    "tn": 5,
+    "fp": 19,
+    "fn": 1
+  },
+  "epochs_trained": 31
+}

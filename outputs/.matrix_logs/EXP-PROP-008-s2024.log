@@ -1,0 +1,34 @@
+### EXP-PROP-008-s2024 started 2026-09-07T02:32:10
+$ python proposal/train.py --ablation diff_mean --deviation diff --pool mean --fold all --epochs 150 --patience 30 --seed 2024
+Set_0: AUC=0.7879 Acc=0.6250 BalAcc=0.6086 F1=0.6939 (82 epochs)
+Set_1: AUC=0.8516 Acc=0.8250 BalAcc=0.8229 F1=0.7879 (58 epochs)
+Set_2: AUC=0.9350 Acc=0.8250 BalAcc=0.8250 F1=0.8372 (106 epochs)
+Set_3: AUC=0.8182 Acc=0.5250 BalAcc=0.4823 F1=0.6780 (31 epochs)
+{
+ "acc": {
+  "mean": 0.7,
+  "std": 0.12990381056766576
+ },
+ "auc": {
+  "mean": 0.8481557765151515,
+  "std": 0.05496653175984741
+ },
+ "balanced_acc": {
+  "mean": 0.6847064393939394,
+  "std": 0.1462341063133782
+ },
+ "sen": {
+  "mean": 0.8485795454545455,
+  "std": 0.057794872508062006
+ },
+ "spe": {
+  "mean": 0.5208333333333333,
+  "std": 0.30516072975999764
+ },
+ "f1": {
+  "mean": 0.7492329357299232,
+  "std": 0.06591002051546738
+ }
+}
+
+### exit=0 duration=27s

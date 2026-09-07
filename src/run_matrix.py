@@ -4,7 +4,7 @@ Executes experiment commands (from experiment/matrix.json) in priority order
 using N parallel workers, logs status to experiment/matrix_status.csv and
 per-experiment stdout/stderr to outputs/.matrix_logs/{id}.log.
 
-Usage (from EMS-Minh/src):
+Usage (from EMS-Project/src):
     python run_matrix.py                 # all pending
     python run_matrix.py --ids EXP-PROP-001-s42 EXP-PROP-007-s42
     python run_matrix.py --workers 4

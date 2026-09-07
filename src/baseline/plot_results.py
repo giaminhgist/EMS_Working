@@ -67,7 +67,7 @@ def plot_auc_comparison(summary):
 
 def collect_scores_p1(method_rep_dirs):
     """Concatenate val predictions over the 4 folds -> (y, scores) per method."""
-    meta = pd.read_csv(Path("/root/EMS-Minh/processed_dataset/metadata.csv"))
+    meta = pd.read_csv(Path("/root/EMS-Project/processed_dataset/metadata.csv"))
     meta = meta[meta.partition == "train"].set_index("subject_id")
     out = {}
     for mdir in method_rep_dirs:

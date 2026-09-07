@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS-Project/outputs/proposal/z_mean__seed2024__foldSet_1__20260907-023152",
+  "best_epoch": 75,
+  "best_val_auc": 0.8723958333333335,
+  "val_metrics": {
+    "acc": 0.7,
+    "auc": 0.8723958333333335,
+    "balanced_acc": 0.6770833333333333,
+    "sen": 0.5625,
+    "spe": 0.7916666666666666,
+    "f1": 0.6000000000000001,
+    "tp": 9,
+    "tn": 19,
+    "fp": 5,
+    "fn": 7
+  },
+  "epochs_trained": 106
+}

@@ -1,10 +1,10 @@
 # 05 — Command Reference
 
 Complete list of commands to reproduce the EMS-Baseline experiments
-(from repo root `/root/EMS-Minh`).
+(from repo root `/root/EMS-Project`).
 
 ```
-EMS-Minh/
+EMS-Project/
 ├── src/
 │   ├── eda.py                  # EDA: figures + stats -> docs/EDA/
 │   ├── preprocess.py           # clean + 45 hand-crafted features -> processed_dataset/

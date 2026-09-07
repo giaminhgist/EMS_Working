@@ -95,11 +95,11 @@ fixed at 0.5):
 ## Reproduction commands
 
 ```bash
-# --- data prep (from repo root /root/EMS-Minh) ---
+# --- data prep (from repo root /root/EMS-Project) ---
 python src/eda.py                                  # EDA figures + stats -> docs/EDA
 python src/preprocess.py                           # clean + 45 features -> processed_dataset/
 
-# --- baselines (code in EMS-Minh/src/baseline) ---
+# --- baselines (code in EMS-Project/src/baseline) ---
 cd src/baseline
 
 # one method, one protocol

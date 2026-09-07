@@ -19,7 +19,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # EMS-Minh/src
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # EMS-Project/src
 from data.common import labels_of  # noqa: E402
 from data.tabular import (subject_matrices, feature_norm_stats,  # noqa: E402
                           hc_normative_stats, apply_deviation)

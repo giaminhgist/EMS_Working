@@ -12,7 +12,7 @@ main proposal (deviation=learned, comparator=mlp, pool=attention) under the
 official 4-fold protocol with random stimulus subsets of size 25/50/100 (same
 subset across folds, stimulus seed 42) and report fold-mean validation AUC.
 
-Usage (from EMS-Minh/src):
+Usage (from EMS-Project/src):
     python evaluation/cross_stimulus.py
 """
 import json

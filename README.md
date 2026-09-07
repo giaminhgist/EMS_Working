@@ -1,4 +1,4 @@
-# EMS-Minh — Learned Normative Gaze Modeling for Schizophrenia Recognition
+# EMS-Project — Learned Normative Gaze Modeling for Schizophrenia Recognition
 
 Research codebase implementing the methodology of
 [`Original_Proposal.md`](Original_Proposal.md) as a reproducible
@@ -79,7 +79,7 @@ held-out folds/test subjects.
 ## 4. Project structure
 
 ```
-EMS-Minh/
+EMS-Project/
 ├── original_dataset/            # raw EMS (xlsx fixations + 100 stimuli images)
 ├── processed_dataset/           # 45-dim features, metadata, quality report
 ├── docs/

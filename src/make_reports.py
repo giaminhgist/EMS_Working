@@ -1,6 +1,6 @@
 """Generate per-experiment reports in experiment/ from fold summaries + matrix.
 
-Usage (from EMS-Minh): python src/make_reports.py
+Usage (from EMS-Project): python src/make_reports.py
 """
 import json
 import sys

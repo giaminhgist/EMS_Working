@@ -21,7 +21,7 @@ aggregated to subject level in three possible representations.
 python src/eda.py
 # 2. preprocess + hand-crafted features
 python src/preprocess.py
-# 3. run one baseline (code lives in EMS-Minh/src/baseline/)
+# 3. run one baseline (code lives in EMS-Project/src/baseline/)
 cd src/baseline
 python run_experiment.py --method svm_rbf --protocol P1
 python run_experiment.py --method fnn     --protocol P2 --seed 42
@@ -34,7 +34,7 @@ python plot_results.py
 ## Repository layout
 
 ```
-src/baseline/                # (EMS-Minh/src/baseline)
+src/baseline/                # (EMS-Project/src/baseline)
 ├── common.py            # paths, seeds, threshold=0.5, category mapping
 ├── features_builder.py  # subject-level matrices: agg(91) / catagg(181) / concat(4500)
 ├── metrics_utils.py     # Acc/Sen/Spe/Pre/F1 @0.5 + AUC

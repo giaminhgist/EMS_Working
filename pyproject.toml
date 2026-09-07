@@ -1,5 +1,5 @@
 [project]
-name = "ems-minh"
+name = "ems-project"
 version = "0.2.0"
 description = "Normative gaze modeling for schizophrenia recognition (EMS eye-tracking dataset)"
 requires-python = ">=3.12"

@@ -1,5 +1,5 @@
 {
-  "note": "cmd entries run from EMS-Minh/src with python=sys.executable of run_matrix.py; a 'seeds' field expands into one job per seed (id suffix -s{seed}, --seed appended)",
+  "note": "cmd entries run from EMS-Project/src with python=sys.executable of run_matrix.py; a 'seeds' field expands into one job per seed (id suffix -s{seed}, --seed appended)",
   "seeds_default": [42, 1234, 2024, 2026, 7],
   "experiments": [
     {"id": "EXP-PROP-001", "priority": 1, "hypothesis": "Learned latent normative deviation with a learned comparator (the main proposal) beats all ablations under the official 4-fold protocol.",

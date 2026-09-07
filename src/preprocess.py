@@ -119,7 +119,7 @@ def main():
         fold = next(k for k, v in folds.items() if sid in v)
         rows.append({"subject_id": sid, "partition": "train", "label": subject_label(sid),
                      "official_fold": fold, "file_id": np.nan})
-    test_files = sorted(Path("/root/EMS-Minh/original_dataset/EMS/Test/Fixations").glob("*.xlsx"))
+    test_files = sorted(Path("/root/EMS-Project/original_dataset/EMS/Test/Fixations").glob("*.xlsx"))
     for i, f in enumerate(test_files):
         rows.append({"subject_id": 400 + i, "partition": "test", "label": np.nan,
                      "official_fold": np.nan,

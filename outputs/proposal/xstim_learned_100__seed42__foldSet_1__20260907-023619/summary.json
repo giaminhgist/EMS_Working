@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS-Project/outputs/proposal/xstim_learned_100__seed42__foldSet_1__20260907-023619",
+  "best_epoch": 48,
+  "best_val_auc": 0.90625,
+  "val_metrics": {
+    "acc": 0.425,
+    "auc": 0.90625,
+    "balanced_acc": 0.5208333333333334,
+    "sen": 1.0,
+    "spe": 0.041666666666666664,
+    "f1": 0.5818181818181819,
+    "tp": 16,
+    "tn": 1,
+    "fp": 23,
+    "fn": 0
+  },
+  "epochs_trained": 79
+}

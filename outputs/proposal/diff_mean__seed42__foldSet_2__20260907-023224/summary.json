@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS-Project/outputs/proposal/diff_mean__seed42__foldSet_2__20260907-023224",
+  "best_epoch": 117,
+  "best_val_auc": 0.93,
+  "val_metrics": {
+    "acc": 0.825,
+    "auc": 0.93,
+    "balanced_acc": 0.825,
+    "sen": 0.9,
+    "spe": 0.75,
+    "f1": 0.8372093023255814,
+    "tp": 18,
+    "tn": 15,
+    "fp": 5,
+    "fn": 2
+  },
+  "epochs_trained": 148
+}

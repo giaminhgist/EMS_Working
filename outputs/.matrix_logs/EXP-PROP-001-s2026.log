@@ -1,0 +1,34 @@
+### EXP-PROP-001-s2026 started 2026-09-07T02:27:51
+$ python proposal/train.py --ablation mlp_attn --comparator mlp --pool attention --fold all --epochs 150 --patience 30 --seed 2026
+Set_0: AUC=0.9899 Acc=0.7750 BalAcc=0.7500 F1=0.8302 (59 epochs)
+Set_1: AUC=0.8854 Acc=0.7250 BalAcc=0.6875 F1=0.5926 (48 epochs)
+Set_2: AUC=0.9775 Acc=0.8750 BalAcc=0.8750 F1=0.8889 (33 epochs)
+Set_3: AUC=0.9242 Acc=0.7500 BalAcc=0.7727 F1=0.7059 (51 epochs)
+{
+ "acc": {
+  "mean": 0.78125,
+  "std": 0.05694020986965187
+ },
+ "auc": {
+  "mean": 0.9442645202020202,
+  "std": 0.04198528353560107
+ },
+ "balanced_acc": {
+  "mean": 0.7713068181818181,
+  "std": 0.06751269680861445
+ },
+ "sen": {
+  "mean": 0.7613636363636364,
+  "std": 0.23917687704374077
+ },
+ "spe": {
+  "mean": 0.78125,
+  "std": 0.184877493221863
+ },
+ "f1": {
+  "mean": 0.7543881284169853,
+  "std": 0.11441894919615117
+ }
+}
+
+### exit=0 duration=32s

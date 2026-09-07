@@ -1,0 +1,19 @@
+{
+  "proposal": "proposal",
+  "ablation": "xstim_learned_25",
+  "seed": 42,
+  "fold": "Set_1",
+  "epochs": 100,
+  "patience": 30,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "batch_size": 16,
+  "dropout": 0.3,
+  "extra": {
+    "n_stim": 25,
+    "stim_seed": 42,
+    "deviation": "learned",
+    "comparator": "mlp",
+    "pool": "attention"
+  }
+}

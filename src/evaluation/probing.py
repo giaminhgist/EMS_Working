@@ -10,7 +10,7 @@ Method: pool the out-of-fold validation embeddings of the 4 official folds
   - linear probe: LogisticRegression, stratified 4-fold inner CV -> AUC ± std
   - silhouette score (HC vs SZ label) on the pooled embedding space
 
-Usage (from EMS-Minh/src):
+Usage (from EMS-Project/src):
     python evaluation/probing.py --runs proposal/mlp_attn proposal/z_mean proposal/mahal_mean
 """
 import argparse
