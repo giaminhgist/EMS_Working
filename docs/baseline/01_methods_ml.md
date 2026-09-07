@@ -33,6 +33,7 @@ Final decision: `pred = prob >= 0.5` (SZ positive).
 ## Methods
 
 ### 1. `svm_rbf` — SVM with RBF kernel
+
 | Property | Value |
 |---|---|
 | Estimator | `sklearn.svm.SVC(kernel='rbf', C=1.0, gamma='scale', probability=True)` |
@@ -44,6 +45,7 @@ Final decision: `pred = prob >= 0.5` (SZ positive).
 Same as `svm_rbf` with `kernel='linear'`.
 
 ### 3. `rf` — Random Forest
+
 | Property | Value |
 |---|---|
 | Estimator | `RandomForestClassifier(n_estimators=500)` |
@@ -51,6 +53,7 @@ Same as `svm_rbf` with `kernel='linear'`.
 | Dims | 91 → 1 |
 
 ### 4. `qda` — Quadratic Discriminant Analysis
+
 | Property | Value |
 |---|---|
 | Pipeline | impute → scale → `PCA(20)` → `QuadraticDiscriminantAnalysis(reg_param=0.5)` |
@@ -59,6 +62,7 @@ Same as `svm_rbf` with `kernel='linear'`.
 | Dims | 91 → 20 → 2 |
 
 ### 5. `gnb` — Gaussian Naive Bayes
+
 | Property | Value |
 |---|---|
 | Estimator | `GaussianNB()` |
@@ -67,6 +71,7 @@ Same as `svm_rbf` with `kernel='linear'`.
 | Dims | 91 → 2 |
 
 ### 6. `lr` — Logistic Regression (L2)
+
 | Property | Value |
 |---|---|
 | Estimator | `LogisticRegression(C=1.0, penalty='l2', max_iter=2000)` |
@@ -74,6 +79,7 @@ Same as `svm_rbf` with `kernel='linear'`.
 | Dims | 91 → 1 |
 
 ### 7. `lr_l1` — Logistic Regression (L1) on concatenated features
+
 | Property | Value |
 |---|---|
 | Estimator | `LogisticRegression(C=1.0, penalty='l1', solver='liblinear')` |
@@ -83,6 +89,7 @@ Same as `svm_rbf` with `kernel='linear'`.
 | Dims | 4,500 → 1 |
 
 ### 8. `knn` — k-Nearest Neighbors
+
 | Property | Value |
 |---|---|
 | Estimator | `KNeighborsClassifier(n_neighbors=5)` |

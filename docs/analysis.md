@@ -188,8 +188,9 @@ trọng.
   bộ baseline.
 - **mlp_mean** (cùng pipeline, mean pool, λ=0): chọn cho quyết định cân bằng
   — Acc 0.8450 / BalAcc 0.8479 val, Acc 0.8083 held-out.
-- Nếu dữ liệu mở rộng: thử lại attention (đủ mẫu sẽ giảm overfit) và
-  temperature scaling để sửa calibration của learned path.
+- Nếu dữ liệu mở rộng: thử lại attention (đủ mẫu sẽ giảm overfit); nếu cần
+  xác suất có nghĩa, áp temperature scaling cho mlp_norm01 (ECE 0.089 →
+  0.065, mục 3.2).
 
 ### Hạn chế còn tồn tại
 
