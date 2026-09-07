@@ -31,25 +31,17 @@ from data.common import OUTPUTS  # noqa: E402
 def latest_fold_runs(proposal, ablation, seed=42):
     """Latest run dir per official fold for one ablation.
 
-    New-style dirs carry the fold name (__foldSet_X__); legacy dirs
-    (__foldall__, created before the fold-naming fix) are assigned to
-    Set_0..Set_3 in creation order — valid because train.py iterates the
-    official folds in a fixed order and creates one dir per fold.
+    Only dirs carrying an official fold name (__foldSet_X__) are used, so
+    test-protocol runs (fold=heldout_split / official) never leak in.
     """
     base = OUTPUTS / proposal
     runs = {}
     for d in base.glob(f"{ablation}__seed{seed}__fold*__*"):
         name = d.name.split("__fold")[1].split("__")[0]
-        fold = name if name.startswith("Set_") else None
-        if fold is not None:
-            if fold not in runs or d.stat().st_mtime > runs[fold].stat().st_mtime:
-                runs[fold] = d
-        else:
-            runs.setdefault("_legacy", []).append(d)
-    if "_legacy" in runs:
-        legacy = sorted(runs.pop("_legacy"), key=lambda d: d.stat().st_mtime)
-        for i, d in enumerate(legacy[:4]):
-            runs[f"Set_{i}"] = d
+        if not name.startswith("Set_"):
+            continue
+        if name not in runs or d.stat().st_mtime > runs[name].stat().st_mtime:
+            runs[name] = d
     return list(runs.values())
 
 

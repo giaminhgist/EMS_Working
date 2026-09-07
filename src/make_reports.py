@@ -17,7 +17,7 @@ EXP_DIR = ROOT / "experiment"
 
 def collect():
     exps = list(expand(json.loads((EXP_DIR / "matrix.json").read_text())["experiments"]))
-    status = pd.read_csv(EXP_DIR / "matrix_status.csv", index_col="id") \
+    status = pd.read_csv(EXP_DIR / "matrix_status.csv", index_col=0) \
         if (EXP_DIR / "matrix_status.csv").exists() else None
     reports = {}
     for summary_file in sorted((ROOT / "outputs").glob("proposal*/**/*allfolds_summary.json")):
@@ -53,7 +53,7 @@ def main():
             "",
             "## Setup",
             "",
-            f"Command: `{' '.join(r['cmd'])}`",
+            f"Command: `{r['cmd']}`",
             "",
             f"Hypothesis: {r['hypothesis']}",
             "",

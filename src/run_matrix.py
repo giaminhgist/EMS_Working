@@ -49,7 +49,7 @@ def expand(exps):
 
 def load_status():
     if STATUS.exists():
-        return pd.read_csv(STATUS, index_col="id")
+        return pd.read_csv(STATUS, index_col=0)
     return pd.DataFrame(columns=["status", "started", "finished", "duration_s",
                                  "exit", "tail"])
 
@@ -84,6 +84,8 @@ def main():
     if args.ids:
         exps = [e for e in exps if e["id"] in args.ids]
     status = load_status()
+    if status.index.name is None:
+        status.index.name = "id"
     todo = [e for e in exps
             if args.force or e["id"] not in status.index
             or status.loc[e["id"], "status"] in ("failed", "pending")]

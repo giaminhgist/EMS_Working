@@ -186,5 +186,25 @@ baselines in `docs/baseline/results/`, so numbers are directly comparable.
 
 ## 9. Status & headline results
 
+All matrix experiments (9 configs × 5 seeds), held-out/official tests and the
+4 evaluation studies have run. Headline (official 4-fold validation, mean over
+5 seeds; held-out test = 120/40 protocol, 3 seeds):
+
+| Model | Val AUC | Val Acc | Held-out test AUC / Acc |
+|---|---|---|---|
+| Proposal mlp_norm01 (λ=0.1) | **0.9484±0.0055** | 0.7900 | **0.9150** / 0.7750 |
+| Proposal mlp_mean | 0.9439±0.0059 | **0.8450** | 0.8808 / **0.8083** |
+| Proposal mlp_attn | 0.9376±0.0086 | 0.8100 | 0.8650 / 0.7667 |
+| Hard ablation z_mean | 0.9065±0.0054 | 0.8075 | 0.8733 / 0.7833 |
+| Hard ablation mahal_mean | 0.9102±0.0040 | 0.8012 | — |
+| Hard ablation diff_mean | 0.8635±0.0091 | 0.7662 | — |
+| Best hand-crafted baseline (SVM-RBF) | 0.8793 | 0.7938 | — |
+| Paper MSNet (deep, saliency features) | 0.8972 | 0.8313 | 0.8854 |
+
+Key evaluation findings: learned latent deviation embeddings most separable
+(probe AUC 0.9356); hard z-deviation best calibrated family (ECE 0.089 vs
+0.152 learned); the fixed z-deviation transfers better across stimulus
+subsets (AUC drop 0.013 vs 0.019).
+
 See [`experiment_tracker.md`](experiment_tracker.md) for the full matrix,
 per-experiment reports in [`experiment/`](experiment/), and next steps.

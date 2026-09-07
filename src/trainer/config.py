@@ -16,7 +16,7 @@ from data.common import OUTPUTS
 @dataclass
 class RunConfig:
     # identity
-    proposal: str = ""                 # e.g. "proposal1_norm_sub"
+    proposal: str = ""                 # e.g. "proposal"
     ablation: str = ""                 # short tag describing the variant
     seed: int = 42
     fold: str = "Set_0"                # official fold name (or "P2_split")
