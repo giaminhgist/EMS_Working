@@ -77,7 +77,8 @@ EMS-Minh/
 ├── docs/
 │   ├── EDA/README.md            # full EDA (sections 1–7) + figures
 │   ├── baseline/                # hand-crafted baselines (docs + results/)
-│   └── research/design.md       # novelty check + locked methodology
+│   ├── research/design.md       # novelty check + locked methodology
+│   └── analysis.md              # component ablation analysis + conclusions
 ├── src/
 │   ├── data/                    # shared builders: tabular deviations, folds,
 │   │                            #   leakage-safe normative stats
