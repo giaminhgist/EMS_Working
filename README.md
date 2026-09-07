@@ -36,6 +36,14 @@ Experiment tracking: [`experiment_tracker.md`](experiment_tracker.md).
   - `quality_report.txt` — NaN audit (2.04 % cells, from missing stimulus pairs)
 - **Reproduction**: `python src/eda.py` → `python src/preprocess.py`
 
+> **Data access & licensing**: the EMS dataset is *not* included in this
+> repository (usage agreement: non-commercial research only). Download it from
+> the [official repo](https://github.com/YingjieSong1/EMS) into
+> `original_dataset/EMS/`, then regenerate `processed_dataset/` with the two
+> commands above. `outputs/`, `original_dataset/` and `processed_dataset/` are
+> git-ignored; aggregate results are summarized in
+> [`experiment_tracker.md`](experiment_tracker.md) and `experiment/`.
+
 ## 2. Method (locked version)
 
 See [`docs/research/design.md`](docs/research/design.md) for the full
@@ -204,9 +212,9 @@ All matrix experiments (9 configs × 5 seeds), held-out/official tests and the
 | Paper MSNet (deep, saliency features) | 0.8972 | 0.8313 | 0.8854 |
 
 Key evaluation findings: learned latent deviation embeddings most separable
-(probe AUC 0.9356); hard z-deviation best calibrated family (ECE 0.089 vs
-0.152 learned); the fixed z-deviation transfers better across stimulus
-subsets (AUC drop 0.013 vs 0.019).
+(probe AUC 0.9356); hard deviations and mlp_norm01 best calibrated
+(ECE 0.083–0.089 vs 0.152 for mlp_attn); the fixed z-deviation transfers
+better across stimulus subsets (AUC drop 0.013 vs 0.019).
 
 See [`experiment_tracker.md`](experiment_tracker.md) for the full matrix,
 per-experiment reports in [`experiment/`](experiment/), and next steps.
