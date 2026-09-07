@@ -120,17 +120,25 @@ baseline mạnh, khiến thắng lợi của learned path (+0.03–0.04 val AUC)
 
 ### 3.2 Calibration (ECE, Brier)
 
-| Config | ECE | Brier |
-|---|---|---|
-| mahal_mean | **0.0833** | 0.1257 |
-| z_mean | 0.0888 | 0.1355 |
-| diff_mean | 0.1008 | 0.1646 |
-| mlp_attn | 0.1515 | 0.1662 |
+| Config | ECE | Brier | AUC (pooled val) |
+|---|---|---|---|
+| mahal_mean | **0.0833** | 0.1257 | 0.9030 |
+| mlp_norm01 | 0.0890 | **0.1173** | 0.9273 |
+| z_mean | 0.0888 | 0.1355 | 0.8838 |
+| diff_mean | 0.1008 | 0.1646 | 0.8408 |
+| mlp_mean | 0.1415 | 0.1426 | 0.8878 |
+| mlp_attn | 0.1515 | 0.1662 | 0.8583 |
 
-Các hard deviation được calibrate tốt hơn hẳn mô hình learned (0.083–0.101 vs
-0.152) — **hạn chế cần ghi nhận**: learned model tự tin quá mức, nên dùng
-temperature scaling / label smoothing nếu cần xác suất có nghĩa. (Chưa đo ECE
-của mlp_norm01 — việc cần làm tiếp.)
+Điểm mới: **λ_norm đồng thời sửa calibration** — mlp_norm01 (ECE 0.0890) ở
+mức ngang các hard deviation (0.083–0.089), trong khi mlp_attn (λ=0) là tệ
+nhất (0.1515). Đây là lý do thứ ba để bật λ_norm: AUC +, ổn định +,
+calibration +. Vấn đề overconfidence chỉ còn ở mlp_attn/mlp_mean.
+
+**Temperature scaling** (fit 1 hệ số T, out-of-fold, đánh giá trên fold còn
+lại): mlp_norm01 T≈1.3–1.8 ổn định qua folds → ECE 0.0890 → **0.0647** (giảm
+thật, Brier 0.1173 → 0.1133). Ngược lại mlp_attn/mlp_mean có T dao động mạnh
+(1.01–2.09; 0.38–1.84) → single-T không giúp (ECE tăng lên 0.185/0.218) —
+miscalibration của chúng không phải overconfidence toàn cục đơn giản.
 
 ### 3.3 Cross-stimulus generalization (K=25/50/100)
 
@@ -185,8 +193,11 @@ trọng.
 
 ### Hạn chế còn tồn tại
 
-1. Learned model kém calibrate hơn hard deviation (ECE 0.152 vs 0.089).
+1. mlp_attn/mlp_mean (λ=0) kém calibrate (ECE 0.14–0.15); temperature scaling
+   đơn hệ số không sửa được chúng — cần label smoothing hoặc dùng mlp_norm01
+   (ECE 0.089, scaling về 0.065).
 2. Learned path suy giảm nhiều hơn khi giảm số stimuli (0.019 vs 0.013).
 3. n=5 seeds cho paired test — các hiệu ứng nhỏ (pooling, mahal) cần thêm seed
    hoặc dữ liệu để phán quyết chắc chắn.
-4. Chưa đo ECE của mlp_norm01 và chưa có official-test score (labels bị giữ).
+4. Chưa có official-test score (labels bị giữ; mới có 48 predictions gửi
+   benchmark).

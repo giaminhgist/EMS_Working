@@ -39,7 +39,7 @@ Val AUC/Acc = mean ± std over 5 seeds of the 4-fold mean metrics (threshold 0.5
 | ID | Test | Hypothesis | Status | Result |
 |---|---|---|---|---|
 | EXP-EVAL-001 | Embedding separability probing | learned latent deviation embeddings separate HC/SZ better (probe AUC + silhouette) | ✅ | mlp_norm01 probe AUC **0.9356**, sil 0.111 > mlp_attn 0.9163 > mahal 0.8769 > z 0.8688 — learned latent deviation most separable |
-| EXP-EVAL-002 | Calibration (ECE, Brier) | deviation models better calibrated | ✅ | mahal ECE **0.0833** < z 0.0888 < diff 0.1008 < mlp_attn 0.1515 — hard deviations best calibrated |
+| EXP-EVAL-002 | Calibration (ECE, Brier) | deviation models better calibrated | ✅ | mahal ECE **0.0833** ≈ z 0.0888 ≈ mlp_norm01 0.0890 < diff 0.1008 < mlp_mean 0.1415 < mlp_attn 0.1515; λ_norm fixes calibration of the learned path; temperature scaling: mlp_norm01 → ECE 0.0647 |
 | EXP-EVAL-003 | Stimulus-category discriminability | per-stimulus AUC by category; deviation signal at subject aggregation | ✅ | raw 0.727 / z 0.725 overall; categories similar (0.71–0.73) — deviation signal lives at subject aggregation, not single stimuli |
 | EXP-EVAL-004 | Cross-stimulus generalization (K=25/50/100) | hard z-deviation degrades less than the learned proposal when stimuli shrink | ✅ | AUC drop 100→25: z **0.0125** vs learned 0.0190 — fixed deviation is the more transferable quantity |
 
