@@ -78,6 +78,7 @@ EMS-Minh/
 │   ├── EDA/README.md            # full EDA (sections 1–7) + figures
 │   ├── baseline/                # hand-crafted baselines (docs + results/)
 │   ├── research/design.md       # novelty check + locked methodology
+│   ├── model_spec.md            # architecture, tensor shapes, loss, ablations, evals
 │   └── analysis.md              # component ablation analysis + conclusions
 ├── src/
 │   ├── data/                    # shared builders: tabular deviations, folds,
