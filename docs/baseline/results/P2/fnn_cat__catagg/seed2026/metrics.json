@@ -1,0 +1,17 @@
+{
+  "method": "fnn_cat",
+  "rep": "catagg",
+  "protocol": "P2",
+  "seed": 2026,
+  "threshold": 0.5,
+  "acc": 0.725,
+  "sen": 0.6,
+  "spe": 0.85,
+  "pre": 0.8,
+  "f1": 0.6857142857142857,
+  "auc": 0.7775,
+  "tp": 12,
+  "tn": 17,
+  "fp": 3,
+  "fn": 8
+}

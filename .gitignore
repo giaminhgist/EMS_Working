@@ -1,0 +1,14 @@
+# runtime outputs (regenerable)
+outputs/
+experiment/matrix_status.csv
+
+# data (raw EMS is license-restricted; processed artifacts are derived from it)
+original_dataset/
+processed_dataset/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.ipynb_checkpoints/
