@@ -1,0 +1,83 @@
+#!/usr/bin/env python
+"""Entry point — regenerate the full presentation figure suite.
+
+Usage (from the repo root, EMS-Project):
+    .venv/bin/python presentation/scripts/run_all.py [--groups 01,02,...] [--skip-cache]
+
+Groups:
+  01 dataset (raw fixations, cleaned; needs presentation/cache/fixations_cleaned.pkl)
+  02 hand-crafted features
+  03 methodology diagrams
+  04 ablations
+  05 latent distribution (needs cache/latent exports)
+  06 importance + XAI (needs cache/latent exports)
+
+Caching:
+  - raw fixations are cached by rawdata.py (presentation/cache/fixations_cleaned.pkl)
+  - latent exports are cached in presentation/cache/latent/ by model_utils.export_run
+  - both are skipped when present; pass --force to rebuild.
+"""
+import argparse
+import subprocess
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[2]
+SCRIPTS = Path(__file__).resolve().parent
+PY = sys.executable or str(REPO / ".venv" / "bin" / "python")
+
+LATENT_RUNS = [
+    ("mlp_norm01", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
+    ("mlp_attn", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
+    ("mlp_mean", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
+    ("z_mean", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
+    ("sub_attn", 42, ["Set_0"]),
+    ("zsub_attn", 42, ["Set_0"]),
+    ("mahal_mean", 42, ["Set_0"]),
+    ("diff_mean", 42, ["Set_0"]),
+]
+
+
+def run(cmd):
+    print("$", " ".join(map(str, cmd)))
+    r = subprocess.run([str(c) for c in cmd], cwd=REPO)
+    if r.returncode != 0:
+        print(f"FAILED: {cmd}")
+        sys.exit(r.returncode)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--groups", default="01,02,03,04,05,06,07",
+                    help="comma-separated figure groups to regenerate")
+    ap.add_argument("--force-cache", action="store_true",
+                    help="rebuild fixation cache even if present")
+    args = ap.parse_args()
+    groups = set(g.strip() for g in args.groups.split(",") if g.strip())
+
+    if args.force_cache or not (REPO / "presentation/cache/fixations_cleaned.pkl").exists():
+        run([PY, SCRIPTS / "rawdata.py"])
+
+    if groups & {"05", "06"}:
+        for abl, seed, folds in LATENT_RUNS:
+            for f in folds:
+                out = REPO / "presentation/cache/latent" / f"{abl}__seed{seed}__fold{f}.npz"
+                if not out.exists():
+                    run([PY, SCRIPTS / "model_utils.py", "--ablation", abl,
+                         "--seed", str(seed), "--fold", f])
+
+    scripts = {
+        "01": "make_dataset_figs.py",
+        "02": "make_feature_figs.py",
+        "03": "make_methodology_figs.py",
+        "04": "make_ablation_figs.py",
+        "05": "make_latent_figs.py",
+        "06": "make_xai_figs.py",
+    }
+    for g in sorted(groups):
+        run([PY, SCRIPTS / scripts[g]])
+    print("all figure groups done")
+
+
+if __name__ == "__main__":
+    main()
