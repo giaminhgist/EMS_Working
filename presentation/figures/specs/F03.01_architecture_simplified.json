@@ -1,0 +1,28 @@
+{
+  "title": "EMS Architecture (simplified): Learned Stimulus-Conditioned Normative Modeling",
+  "canvas": {"width": 800, "height": 780},
+  "style": {"font_size": 14},
+  "nodes": [
+    {"id": "raw", "label": "Raw fixation records", "x": 300, "y": 55, "width": 190, "height": 46, "shape": "rounded", "fill": "#F5F5F5", "stroke": "#9CA3AF"},
+    {"id": "feat", "label": "45 features/stimulus", "x": 300, "y": 145, "width": 190, "height": 50, "shape": "rounded", "fill": "#F5F5F5", "stroke": "#9CA3AF"},
+    {"id": "tensor", "label": "Subject tensor 100 × 45", "x": 300, "y": 235, "width": 200, "height": 46, "shape": "rounded", "fill": "#F5F5F5", "stroke": "#9CA3AF"},
+    {"id": "enc", "label": "Shared encoder\n45 → 128 → 128", "x": 300, "y": 325, "width": 220, "height": 62, "shape": "rounded", "fill": "#DBEAFE", "stroke": "#2563EB"},
+    {"id": "z", "label": "Subject latent z(i,s)", "x": 300, "y": 415, "width": 170, "height": 46, "shape": "ellipse", "fill": "#F5F5F5", "stroke": "#9CA3AF"},
+    {"id": "hc", "label": "Training-fold HC only", "x": 640, "y": 325, "width": 170, "height": 46, "shape": "rounded", "fill": "#FFFBEB", "stroke": "#D97706"},
+    {"id": "bank", "label": "Per-stimulus HC latent bank", "x": 640, "y": 415, "width": 230, "height": 52, "shape": "rounded", "fill": "#FEF3C7", "stroke": "#D97706"},
+    {"id": "cmp", "label": "Learned comparator", "x": 470, "y": 505, "width": 175, "height": 52, "shape": "rounded", "fill": "#DCFCE7", "stroke": "#16A34A"},
+    {"id": "pool", "label": "Pool deviations across stimuli", "x": 470, "y": 595, "width": 240, "height": 52, "shape": "rounded", "fill": "#DBEAFE", "stroke": "#2563EB"},
+    {"id": "out", "label": "HC/SZ probability", "x": 470, "y": 685, "width": 160, "height": 50, "shape": "rounded", "fill": "#FCE7F3", "stroke": "#DB2777"}
+  ],
+  "edges": [
+    {"from": "raw", "to": "feat"},
+    {"from": "feat", "to": "tensor"},
+    {"from": "tensor", "to": "enc"},
+    {"from": "enc", "to": "z"},
+    {"from": "z", "to": "cmp"},
+    {"from": "hc", "to": "bank"},
+    {"from": "bank", "to": "cmp"},
+    {"from": "cmp", "to": "pool"},
+    {"from": "pool", "to": "out"}
+  ]
+}
