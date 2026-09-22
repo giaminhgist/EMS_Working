@@ -1,4 +1,4 @@
-"""Figure 05 — learned latent space vs the HC normative bank.
+"""Figure 4 — learned latent space vs the HC normative bank.
 
 One merged figure: (a) joint PCA of bank-centered encodings, (b) subject-mean
 PC1 distributions, (c) subject x stimulus deviation heatmap, (d-e) lambda_norm
@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import (FIG, TAB, CACHE, FOLDS, HC_COLOR, SZ_COLOR, REF_COLOR,  # noqa: E402
                     LEARNED_COLOR, HARD_COLOR, savefig, image_list, category_of)
 
-OUT = FIG / "05_latent_distribution"
+OUT = FIG
 LAT = CACHE / "latent"
 
 
@@ -100,7 +100,7 @@ def subject_rms(r):
 
 
 # --------------------------------------------------------------------- #
-# F05.01 learned latent space vs the HC normative bank
+# Figure_4 learned latent space vs the HC normative bank
 # --------------------------------------------------------------------- #
 def fig_normative_latent():
     """One figure, five panels: (a) joint PCA, (b) subject-mean PC1,
@@ -259,7 +259,7 @@ def fig_normative_latent():
 
     fig.suptitle("Learned latent space vs the HC normative bank "
                  "(mlp_norm01, out-of-fold seed 42)", fontsize=11, y=0.985)
-    savefig(fig, OUT, "F05.01_normative_latent")
+    savefig(fig, OUT, "Figure_4")
     pd.DataFrame({"subject_id": lat["subject_id"], "label": y,
                   "pc1_mean": subj_mean[:, 0], "pc2_mean": subj_mean[:, 1]}) \
         .to_csv(TAB / "T05.01_pca.csv", index=False)
@@ -272,4 +272,4 @@ def fig_normative_latent():
 
 if __name__ == "__main__":
     fig_normative_latent()
-    print("done 05_latent_distribution")
+    print("done Figure_4 (normative latent)")

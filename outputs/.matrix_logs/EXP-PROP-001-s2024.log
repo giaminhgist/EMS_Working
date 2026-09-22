@@ -32,3 +32,39 @@ Set_3: AUC=0.9040 Acc=0.7000 BalAcc=0.7273 F1=0.6250 (51 epochs)
 }
 
 ### exit=0 duration=29s
+### EXP-PROP-001-s2024 started 2026-09-22T10:26:24
+$ python proposal/train.py --ablation mlp_attn --comparator mlp --pool attention --fold all --epochs 150 --patience 30 --seed 2024
+### EXP-PROP-001-s2024 started 2026-09-22T10:35:35
+$ python proposal/train.py --ablation mlp_attn --comparator mlp --pool attention --fold all --epochs 150 --patience 30 --seed 2024
+Set_0: AUC=0.9545 Acc=0.5750 BalAcc=0.5278 F1=0.7213 (87 epochs)
+Set_1: AUC=0.8151 Acc=0.6250 BalAcc=0.6458 F1=0.6154 (44 epochs)
+Set_2: AUC=0.9725 Acc=0.9250 BalAcc=0.9250 F1=0.9189 (33 epochs)
+Set_3: AUC=0.8914 Acc=0.8000 BalAcc=0.7980 F1=0.8182 (54 epochs)
+{
+ "acc": {
+  "mean": 0.73125,
+  "std": 0.13961442439805427
+ },
+ "auc": {
+  "mean": 0.9083909406565657,
+  "std": 0.06170665392844534
+ },
+ "balanced_acc": {
+  "mean": 0.7241477272727274,
+  "std": 0.1504053784671182
+ },
+ "sen": {
+  "mean": 0.8545454545454546,
+  "std": 0.09141902436872165
+ },
+ "spe": {
+  "mean": 0.59375,
+  "std": 0.35045371275526616
+ },
+ "f1": {
+  "mean": 0.7684492069737971,
+  "std": 0.1126556720340516
+ }
+}
+
+### exit=0 duration=159s

@@ -1,7 +1,7 @@
 """Shared paths and utilities for EMS-Baseline baselines."""
 from pathlib import Path
 
-ROOT = Path("/root/EMS-Project")
+ROOT = Path(__file__).resolve().parents[2]  # repo root, portable across machines
 PROCESSED = ROOT / "processed_dataset"
 RESULTS = ROOT / "docs" / "baseline" / "results"
 RESULTS.mkdir(parents=True, exist_ok=True)

@@ -24,11 +24,11 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import (FIG, TAB, CAT_COLORS, HC_COLOR, SZ_COLOR, savefig,  # noqa: E402
-                    load_metadata, image_list, category_of, PROCESSED)
+                    load_metadata, image_list, category_of, PROCESSED, RAW)
 from rawdata import load_cleaned, load_drop_log, labels_series  # noqa: E402
 
-IMG_ROOT = Path("/root/EMS-Project/original_dataset/EMS/Images")
-OUT = FIG / "01_dataset"
+IMG_ROOT = RAW / "Images"
+OUT = FIG
 CAT_ORDER = ["social", "natural", "synthetic", "manipulated"]
 
 # --------------------------------------------------------------------- #
@@ -106,7 +106,7 @@ def raincloud(ax, hc, sz, title, unit, letter):
 
 
 # --------------------------------------------------------------------- #
-# F01.01 dataset overview
+# Figure_1 dataset overview
 # --------------------------------------------------------------------- #
 def fig_dataset_overview():
     meta = load_metadata()
@@ -182,7 +182,7 @@ def fig_dataset_overview():
     ax.set_title("(c) Official 4-fold CV split (40/fold)")
     ax.set_ylabel("subjects per fold")
     ax.legend(loc="upper right")
-    savefig(fig, OUT, "F01.01_dataset_overview")
+    savefig(fig, OUT, "Figure_1")
     # table
     pd.DataFrame({f: [fold_hc[f], fold_sz[f]] for f in ["Set_0", "Set_1", "Set_2", "Set_3"]},
                  index=["HC", "SZ"]).to_csv(TAB / "T01.01_fold_composition.csv")
@@ -193,10 +193,10 @@ def fig_dataset_overview():
 
 
 # --------------------------------------------------------------------- #
-# F01.02 gaze signatures: subject-level distributions + scanpaths (merged)
+# Figure_2 gaze signatures: subject-level distributions + scanpaths (merged)
 # --------------------------------------------------------------------- #
 def fig_gaze_signatures():
-    """F01.02: top row = subject-level HC/SZ distributions,
+    """Figure_2: top row = subject-level HC/SZ distributions,
     bottom two rows = scanpaths of HC/SZ on the same representative stimuli.
     Welch p / Cohen's d are reported in the caption, not inside the figure.
     """
@@ -258,7 +258,7 @@ def fig_gaze_signatures():
     fig.suptitle("HC vs SZ gaze signatures — subject-level distributions (top) and "
                  "scanpaths on the same representative stimuli (bottom)",
                  fontsize=10.5, y=1.0)
-    savefig(fig, OUT, "F01.02_gaze_signatures")
+    savefig(fig, OUT, "Figure_2")
     s[["n_fix", "dur_mean", "pup_mean", "dispersion", "n_stim", "label"]] \
         .to_csv(TAB / "T01.03_subject_stats.csv")
     pd.DataFrame({"category": CAT_ORDER, "stimulus": [picks[c] for c in CAT_ORDER]}) \

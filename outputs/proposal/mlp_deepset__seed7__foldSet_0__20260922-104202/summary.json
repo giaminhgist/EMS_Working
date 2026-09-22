@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS_Working/outputs/proposal/mlp_deepset__seed7__foldSet_0__20260922-104202",
+  "best_epoch": 23,
+  "best_val_auc": 0.9621212121212122,
+  "val_metrics": {
+    "acc": 0.9,
+    "auc": 0.9621212121212122,
+    "balanced_acc": 0.893939393939394,
+    "sen": 0.9545454545454546,
+    "spe": 0.8333333333333334,
+    "f1": 0.9130434782608695,
+    "tp": 21,
+    "tn": 15,
+    "fp": 3,
+    "fn": 1
+  },
+  "epochs_trained": 54
+}

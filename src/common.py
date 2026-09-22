@@ -4,7 +4,7 @@ import glob
 import numpy as np
 import pandas as pd
 
-ROOT = Path("/root/EMS-Project")
+ROOT = Path(__file__).resolve().parents[1]  # repo root, portable across machines
 RAW = ROOT / "original_dataset" / "EMS"
 TRAIN_FIX_DIR = RAW / "Train_Valid" / "Fixations"
 TEST_FIX_DIR = RAW / "Test" / "Fixations"

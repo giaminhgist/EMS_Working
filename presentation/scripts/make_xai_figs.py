@@ -1,4 +1,4 @@
-"""Figure 06 — feature + stimulus importance.
+"""Figure 5 — feature + stimulus importance.
 
 Model explained: mlp_norm01 (seed 42) — the best-AUC configuration; hard
 z_mean added for feature-space comparison. Feature rankings are computed on
@@ -27,7 +27,7 @@ from model_utils import forward_full, batch_tensors  # noqa: E402
 from make_latent_figs import load_latent, rms_std_residual  # noqa: E402
 from data.tabular import hc_normative_stats  # noqa: E402
 
-OUT = FIG / "06_importance_xai"
+OUT = FIG
 
 
 def model_on(ds, model, device="cpu"):
@@ -74,7 +74,7 @@ def permute_importance(ablation, seed, fold, n_repeats=10, families=False):
 
 
 def fig_importance():
-    """F06.01: (a) feature-family permutation importance, (b) top-15 features,
+    """Figure_5: (a) feature-family permutation importance, (b) top-15 features,
     (c) leave-one-stimulus-out AUC drop vs attention, (d) top-30 stimuli by
     attention, (e) attention by category x group."""
     # --- permutation importance (panels a, b) -------------------------
@@ -189,7 +189,7 @@ def fig_importance():
     ax.set_title("(e) Attention by category × group", fontsize=9.5)
     ax.legend(fontsize=8)
 
-    savefig(fig, OUT, "F06.01_importance")
+    savefig(fig, OUT, "Figure_5")
     pd.DataFrame({f"mlp_norm01_{k}": v for k, v in imp_l.items()}).T \
         .to_csv(TAB / "T06.01a_importance_learned.csv")
     pd.DataFrame({f"{abl}_{g}": fam[g] for abl, fam in
@@ -203,4 +203,4 @@ def fig_importance():
 
 if __name__ == "__main__":
     fig_importance()
-    print("done 06_importance_xai")
+    print("done Figure_5 (importance)")

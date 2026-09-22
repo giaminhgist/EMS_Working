@@ -9,19 +9,17 @@ với các nguồn đã commit; không có số liệu nào bịa.
 
 ```
 presentation/
-├── figures/                 # PNG 300 dpi + SVG theo nhóm
-│   ├── 01_dataset/          # 2 figures (overview, gaze signatures)
-│   ├── 02_features/         # 2 figures (45 features; effect sizes + rainclouds + categories)
-│   ├── 03_methodology/      # 2 figures (architecture, protocols)
-│   ├── 04_ablations/        # 6 figures — mỗi figure một câu hỏi ablation
-│   ├── 05_latent_distribution/  # 1 figure (normative latent: PCA + heatmap + λ diagnostics)
-│   └── 06_importance_xai/   # 1 figure (feature+stimulus importance)
+├── figure/                  # 5 figures — PNG 300 dpi + SVG, đặt tên Figure_1..Figure_5
+│   ├── Figure_1.png/.svg    # dataset overview (subjects, stimuli, official folds)
+│   ├── Figure_2.png/.svg    # gaze signatures: HC vs SZ distributions + scanpaths
+│   ├── Figure_3.png/.svg    # effect sizes của 45 features + rainclouds + category profiles
+│   ├── Figure_4.png/.svg    # normative latent: PCA + heatmap + λ diagnostics
+│   └── Figure_5.png/.svg    # feature + stimulus importance
 ├── scripts/                 # code tái lập (entry point: run_all.py)
 ├── tables/                  # CSV/JSON nguồn cho từng figure
 ├── cache/                   # intermediate tensors (fixations + latent exports)
-├── figure_manifest.csv      # figure ID → nguồn, run/config, protocol, seed/fold, script
+├── figure_manifest.csv      # figure → nguồn, run/config, protocol, seed/fold, script
 ├── figure_index.md          # slide gợi ý, captions (EN), speaker notes (VI), giới hạn
-├── figures_gallery.pdf      # contact sheet toàn bộ figures
 └── missing_artifacts.md     # phần thiếu + lệnh bổ sung
 ```
 
@@ -34,12 +32,12 @@ cd /root/EMS-Project
 .venv/bin/python presentation/scripts/run_all.py
 
 # một nhóm
-.venv/bin/python presentation/scripts/run_all.py --groups 04,05
+.venv/bin/python presentation/scripts/run_all.py --groups 05
 
 # chạy trực tiếp một script
-.venv/bin/python presentation/scripts/make_ablation_figs.py
+.venv/bin/python presentation/scripts/make_latent_figs.py
 
-# regenerate manifest + gallery sau khi đổi figures
+# regenerate manifest + gallery (contact sheet) sau khi đổi figures
 .venv/bin/python presentation/scripts/make_manifest_gallery.py
 ```
 
@@ -57,14 +55,9 @@ openpyxl (đọc xlsx fixation files). Không cần pyarrow/tqdm (đã tránh).
   dùng hàng nghìn fixation làm quan sát độc lập.
 - **P1**: mean qua 5 seeds của mean 4 folds; fold-mean ≠ pooled AUC (ROC dùng
   pooled, bảng số dùng fold-mean — đều ghi nhãn rõ).
-- **Baselines P1 chỉ có seed 42** → không vẽ error bar như thể có nhiều seed;
-  error bars chỉ phản ánh n thực.
-- **Config matching**: run được chọn theo `config.json` khớp với
-  `ABLATION_META` (không chọn theo mtime hay kết quả đẹp).
 - **Checkpoint**: mọi inference dùng `best.pt` nguyên trạng, giữ nguyên bank
   buffers (không refresh), không retrain.
-- **Verification**: script 04 (ablations) tái lập đúng các paired p-values
-  trong `docs/analysis.md`; script 05 (latent) dùng nguyên trạng các exports
+- **Verification**: script latent (Figure_4) dùng nguyên trạng các exports
   bank/z từ checkpoint `best.pt` trong `cache/latent`.
 - **XAI**: ranking tính trên fold Set_1, đánh giá trên fold Set_0 (partition
   riêng); permutation hoán đổi cả feature trajectory giữa subjects.
@@ -76,8 +69,6 @@ openpyxl (đọc xlsx fixation files). Không cần pyarrow/tqdm (đã tránh).
 - Run artifacts: `outputs/proposal/{ablation}__seed{s}__fold{f}__*` (best.pt,
   predictions.csv, metrics.jsonl, allfolds_summary.json),
   `outputs/proposal/test_heldout/*`, `outputs/evaluation/*.csv`.
-- Baselines: `docs/baseline/results/summary.csv` + per-run dirs
-  (P1 val_preds.csv không có label/fold → join theo subject_id với metadata).
 - Dữ liệu: `original_dataset/EMS/`, `processed_dataset/` (features, metadata,
   quality_report).
 - Docs đối chiếu: `docs/analysis.md`, `docs/model_spec.md`,

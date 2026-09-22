@@ -25,13 +25,11 @@ import seaborn as sns
 REPO = Path(__file__).resolve().parents[2]
 assert (REPO / "processed_dataset").exists(), f"repo root not found at {REPO}"
 PRES = REPO / "presentation"
-FIG = PRES / "figures"
+FIG = PRES / "figure"
 TAB = PRES / "tables"
 CACHE = PRES / "cache"
 SCRIPTS = PRES / "scripts"
 OUT_PROP = REPO / "outputs" / "proposal"
-OUT_EVAL = REPO / "outputs" / "evaluation"
-BASE_RES = REPO / "docs" / "baseline" / "results"
 PROCESSED = REPO / "processed_dataset"
 RAW = REPO / "original_dataset" / "EMS"
 
@@ -40,47 +38,21 @@ for d in [FIG, TAB, CACHE]:
 
 sys.path.insert(0, str(REPO / "src"))
 
-from data.common import (load_metadata, official_folds, protocol2_split,  # noqa: E402
+from data.common import (load_metadata, official_folds,  # noqa: E402
                          load_stimulus_features, image_list, category_of)
 from trainer.metrics import compute_metrics  # noqa: E402
 
 # --------------------------------------------------------------------- #
 # Run metadata (must match experiment/matrix.json + docs/model_spec.md)
 # --------------------------------------------------------------------- #
-SEEDS = [42, 1234, 2024, 2026, 7]
 FOLDS = ["Set_0", "Set_1", "Set_2", "Set_3"]
-SEEDS_HELDOUT = [42, 2024, 2026]
 
 # ablation -> (deviation, comparator, pool, lambda_norm)
+# (configs used by the remaining figures)
 ABLATION_META = {
     "mlp_attn":    dict(deviation="learned", comparator="mlp", pool="attention", lambda_norm=0.0),
     "mlp_norm01":  dict(deviation="learned", comparator="mlp", pool="attention", lambda_norm=0.1),
-    "sub_attn":    dict(deviation="learned", comparator="sub", pool="attention", lambda_norm=0.0),
-    "zsub_attn":   dict(deviation="learned", comparator="zsub", pool="attention", lambda_norm=0.0),
-    "mlp_mean":    dict(deviation="learned", comparator="mlp", pool="mean", lambda_norm=0.0),
-    "mlp_deepset": dict(deviation="learned", comparator="mlp", pool="deepset", lambda_norm=0.0),
     "z_mean":      dict(deviation="z", pool="mean", lambda_norm=0.0),
-    "diff_mean":   dict(deviation="diff", pool="mean", lambda_norm=0.0),
-    "mahal_mean":  dict(deviation="mahal", pool="mean", lambda_norm=0.0),
-}
-
-ABLATION_LABELS = {
-    "mlp_attn": "learned + attn (main proposal)",
-    "mlp_norm01": "learned + attn + λ=0.1",
-    "sub_attn": "latent sub + attn",
-    "zsub_attn": "latent zsub + attn",
-    "mlp_mean": "learned + mean",
-    "mlp_deepset": "learned + deepset",
-    "z_mean": "hard z-dev (fixed)",
-    "diff_mean": "hard diff (fixed)",
-    "mahal_mean": "hard z+mahal (fixed)",
-}
-
-BASELINE_LABELS = {
-    "svm_rbf": "SVM-RBF", "lr": "LogReg-L2", "rf": "Random Forest",
-    "fnn": "FNN-agg", "svm_linear": "SVM-Lin", "knn": "KNN",
-    "gnb": "GaussianNB", "qda": "QDA", "lr_l1": "LogReg-L1 (concat)",
-    "fnn_cat": "FNN-catagg",
 }
 
 # --------------------------------------------------------------------- #
@@ -128,11 +100,6 @@ def savefig(fig, outdir: Path, name: str, tight=True):
     print(f"  saved {outdir / name}.png/.svg")
 
 
-def wide_fig(nrows=1, ncols=1, w=4.6, h=3.2, **kw):
-    """Figure sized for a 16:9 slide (small multiples in w x h inches)."""
-    return plt.subplots(nrows, ncols, figsize=(w * ncols, h * nrows), **kw)
-
-
 # --------------------------------------------------------------------- #
 # Run-dir resolution (provenance-safe: config must match)
 # --------------------------------------------------------------------- #
@@ -159,91 +126,6 @@ def pick_run_dir(ablation, seed, fold):
     if not candidates:
         raise FileNotFoundError(f"no run dir for {ablation} seed{seed} fold {fold}")
     return candidates[-1]
-
-
-def load_allfolds_summary(ablation, seed):
-    p = OUT_PROP / f"{ablation}__seed{seed}__allfolds_summary.json"
-    return json.loads(p.read_text())
-
-
-def load_run_preds(ablation, seed):
-    """Pooled out-of-fold validation predictions for one (ablation, seed).
-
-    Returns DataFrame [subject_id, label, prob, fold] for the 160 subjects.
-    """
-    rows = []
-    for fold in FOLDS:
-        d = pick_run_dir(ablation, seed, fold)
-        df = pd.read_csv(d / "predictions.csv")
-        df["fold"] = fold
-        rows.append(df)
-    preds = pd.concat(rows, ignore_index=True)
-    preds = preds.sort_values("subject_id").reset_index(drop=True)
-    return preds
-
-
-def metrics_from_preds(df):
-    """Per-fold metrics + pooled metrics from a predictions DataFrame."""
-    out = {}
-    for fold in FOLDS:
-        sub = df[df.fold == fold]
-        out[fold] = compute_metrics(sub.label.values, sub.prob.values)
-    out["fold_mean"] = {k: float(np.mean([out[f][k] for f in FOLDS]))
-                        for k in ["acc", "auc", "balanced_acc", "sen", "spe", "f1"]}
-    out["fold_std"] = {k: float(np.std([out[f][k] for f in FOLDS]))
-                       for k in ["acc", "auc", "balanced_acc", "sen", "spe", "f1"]}
-    out["pooled"] = compute_metrics(df.label.values, df.prob.values)
-    return out
-
-
-def seed_metrics(ablation, metric="auc", seeds=SEEDS):
-    """Fold-mean metric per seed + mean/std over seeds (the reported P1 number)."""
-    vals = {}
-    for s in seeds:
-        summ = load_allfolds_summary(ablation, s)
-        vals[s] = summ["mean_metrics"][metric]["mean"]
-    return vals, float(np.mean(list(vals.values()))), float(np.std(list(vals.values())))
-
-
-def verify_p1_recompute(ablation):
-    """Recompute fold-mean AUC/Acc from predictions.csv and compare to summaries."""
-    rows = []
-    for s in SEEDS:
-        summ = load_allfolds_summary(ablation, s)
-        preds = load_run_preds(ablation, s)
-        m = metrics_from_preds(preds)
-        rows.append(dict(seed=s,
-                         reported_auc=summ["mean_metrics"]["auc"]["mean"],
-                         recomputed_auc=m["fold_mean"]["auc"],
-                         reported_acc=summ["mean_metrics"]["acc"]["mean"],
-                         recomputed_acc=m["fold_mean"]["acc"]))
-    return pd.DataFrame(rows)
-
-
-# --------------------------------------------------------------------- #
-# Baseline access (docs/baseline/results/)
-# --------------------------------------------------------------------- #
-def baseline_summary_df():
-    return pd.read_csv(BASE_RES / "summary.csv")
-
-
-def baseline_p1_preds(method):
-    """Pooled out-of-fold val predictions (160 rows); label joined from metadata.
-
-    The committed val_preds.csv has no label/fold columns -> join by subject_id.
-    """
-    d = BASE_RES / "P1" / f"{method}__agg" / "seed42"
-    preds = pd.read_csv(d / "val_preds.csv")
-    meta = load_metadata()
-    preds["label"] = preds["subject_id"].map(meta["label"])
-    preds["fold"] = preds["subject_id"].map(meta["official_fold"])
-    assert preds["label"].notna().all(), "label join failed for P1 baseline preds"
-    return preds
-
-
-def baseline_p2_preds(method, seed):
-    d = BASE_RES / "P2" / f"{method}__agg" / f"seed{seed}"
-    return pd.read_csv(d / "test_preds.csv")
 
 
 # --------------------------------------------------------------------- #
@@ -325,10 +207,3 @@ def feature_group_of(name):
 def load_subject_features(partition="train"):
     """DataFrame (subject_id, image) x 45 features."""
     return load_stimulus_features(partition)
-
-
-def subject_level_features(partition="train"):
-    """Subject x 45 table: per-subject mean over valid stimuli (NaN-safe)."""
-    feat = load_subject_features(partition)
-    subj = feat.groupby(level="subject_id").mean()
-    return subj
