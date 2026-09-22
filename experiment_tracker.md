@@ -63,6 +63,17 @@ Val AUC/Acc = mean ± std over 5 seeds of the 4-fold mean metrics (threshold 0.5
 - **proposal z_mean (hard ablation)** — val AUC 0.9065; the fixed-deviation ceiling the learned pipeline must clear (+0.03–0.04 AUC).
 - All learned configs beat the best hand-crafted baseline (SVM-RBF val AUC 0.8793).
 
+## Reproducibility (re-run 2026-09-22)
+
+Full re-run of baselines + EXP-PROP-001..006 on a CPU-only machine — see
+[`docs/reproducibility/repro_20260922.md`](docs/reproducibility/repro_20260922.md).
+Classical baselines (SVM/LogReg/RF/…) reproduce bit-exactly; proposal
+configs reproduce within ΔAUC ≤ 0.011 at the 5-seed aggregate level
+(original runs were GPU-trained → CUDA vs CPU RNG + float nondeterminism);
+FNN baselines are deterministic per device but shift across devices
+(ΔAUC up to 0.09 on the 40-subject P2 test) — treat FNN numbers as
+device-dependent. No tracker conclusion changes.
+
 ## Next highest-value experiments
 
 1. Interpretability export for the proposal (stimulus attention, feature-level

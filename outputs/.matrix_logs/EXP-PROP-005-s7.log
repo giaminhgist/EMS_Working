@@ -32,3 +32,37 @@ Set_3: AUC=0.9116 Acc=0.7750 BalAcc=0.7803 F1=0.7805 (71 epochs)
 }
 
 ### exit=0 duration=31s
+### EXP-PROP-005-s7 started 2026-09-22T10:39:37
+$ python proposal/train.py --ablation mlp_mean --comparator mlp --pool mean --fold all --epochs 150 --patience 30 --seed 7
+Set_0: AUC=0.9646 Acc=0.9000 BalAcc=0.8939 F1=0.9130 (41 epochs)
+Set_1: AUC=0.8932 Acc=0.8250 BalAcc=0.8021 F1=0.7586 (38 epochs)
+Set_2: AUC=0.9725 Acc=0.9250 BalAcc=0.9250 F1=0.9231 (48 epochs)
+Set_3: AUC=0.9167 Acc=0.7500 BalAcc=0.7576 F1=0.7500 (85 epochs)
+{
+ "acc": {
+  "mean": 0.8500000000000001,
+  "std": 0.06846531968814579
+ },
+ "auc": {
+  "mean": 0.9367605744949496,
+  "std": 0.032991203389302316
+ },
+ "balanced_acc": {
+  "mean": 0.8446496212121213,
+  "std": 0.06760068723616225
+ },
+ "sen": {
+  "mean": 0.805965909090909,
+  "std": 0.12284657238227849
+ },
+ "spe": {
+  "mean": 0.8833333333333334,
+  "std": 0.0513701166914081
+ },
+ "f1": {
+  "mean": 0.8361852727482413,
+  "std": 0.08200839658314517
+ }
+}
+
+### exit=0 duration=160s

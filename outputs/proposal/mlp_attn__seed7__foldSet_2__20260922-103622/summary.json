@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS_Working/outputs/proposal/mlp_attn__seed7__foldSet_2__20260922-103622",
+  "best_epoch": 8,
+  "best_val_auc": 0.9725,
+  "val_metrics": {
+    "acc": 0.85,
+    "auc": 0.9725,
+    "balanced_acc": 0.85,
+    "sen": 0.85,
+    "spe": 0.85,
+    "f1": 0.85,
+    "tp": 17,
+    "tn": 17,
+    "fp": 3,
+    "fn": 3
+  },
+  "epochs_trained": 39
+}

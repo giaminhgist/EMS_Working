@@ -13,7 +13,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import (ABLATION_META, CACHE, FOLDS, make_datasets,  # noqa: E402
-                    load_checkpoint_model, pick_run_dir, load_run_preds)
+                    load_checkpoint_model, pick_run_dir)
 
 EPS = 1e-6
 

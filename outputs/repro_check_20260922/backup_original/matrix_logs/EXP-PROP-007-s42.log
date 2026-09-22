@@ -1,0 +1,34 @@
+### EXP-PROP-007-s42 started 2026-09-07T02:31:30
+$ python proposal/train.py --ablation z_mean --deviation z --pool mean --fold all --epochs 150 --patience 30 --seed 42
+Set_0: AUC=0.9722 Acc=0.9250 BalAcc=0.9268 F1=0.9302 (103 epochs)
+Set_1: AUC=0.8281 Acc=0.7250 BalAcc=0.7292 F1=0.6857 (100 epochs)
+Set_2: AUC=0.9625 Acc=0.8500 BalAcc=0.8500 F1=0.8571 (53 epochs)
+Set_3: AUC=0.8409 Acc=0.7500 BalAcc=0.7525 F1=0.7619 (79 epochs)
+{
+ "acc": {
+  "mean": 0.8125,
+  "std": 0.08003905296791063
+ },
+ "auc": {
+  "mean": 0.9009390782828283,
+  "std": 0.06666431405336182
+ },
+ "balanced_acc": {
+  "mean": 0.814614898989899,
+  "std": 0.07903618718985071
+ },
+ "sen": {
+  "mean": 0.821590909090909,
+  "std": 0.08340475589428413
+ },
+ "spe": {
+  "mean": 0.8076388888888888,
+  "std": 0.08591768149704201
+ },
+ "f1": {
+  "mean": 0.8087486157253599,
+  "std": 0.09277950186989722
+ }
+}
+
+### exit=0 duration=32s

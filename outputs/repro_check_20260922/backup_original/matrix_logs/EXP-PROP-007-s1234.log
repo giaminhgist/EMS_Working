@@ -1,0 +1,34 @@
+### EXP-PROP-007-s1234 started 2026-09-07T02:31:34
+$ python proposal/train.py --ablation z_mean --deviation z --pool mean --fold all --epochs 150 --patience 30 --seed 1234
+Set_0: AUC=0.9722 Acc=0.9000 BalAcc=0.8990 F1=0.9091 (103 epochs)
+Set_1: AUC=0.8568 Acc=0.7750 BalAcc=0.7812 F1=0.7429 (106 epochs)
+Set_2: AUC=0.9500 Acc=0.8000 BalAcc=0.8000 F1=0.8182 (54 epochs)
+Set_3: AUC=0.8485 Acc=0.7500 BalAcc=0.7525 F1=0.7619 (59 epochs)
+{
+ "acc": {
+  "mean": 0.80625,
+  "std": 0.05694020986965187
+ },
+ "auc": {
+  "mean": 0.906869476010101,
+  "std": 0.054885932319734945
+ },
+ "balanced_acc": {
+  "mean": 0.8081912878787879,
+  "std": 0.05508181519650731
+ },
+ "sen": {
+  "mean": 0.837215909090909,
+  "std": 0.07383467526639644
+ },
+ "spe": {
+  "mean": 0.7791666666666666,
+  "std": 0.06920793057389439
+ },
+ "f1": {
+  "mean": 0.8080086580086581,
+  "std": 0.06459760799414509
+ }
+}
+
+### exit=0 duration=31s

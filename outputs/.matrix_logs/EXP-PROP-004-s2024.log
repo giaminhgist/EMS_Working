@@ -32,3 +32,37 @@ Set_3: AUC=0.8763 Acc=0.8000 BalAcc=0.8030 F1=0.8095 (54 epochs)
 }
 
 ### exit=0 duration=25s
+### EXP-PROP-004-s2024 started 2026-09-22T10:38:36
+$ python proposal/train.py --ablation zsub_attn --comparator zsub --pool attention --fold all --epochs 150 --patience 30 --seed 2024
+Set_0: AUC=0.9722 Acc=0.8500 BalAcc=0.8485 F1=0.8636 (38 epochs)
+Set_1: AUC=0.8281 Acc=0.7250 BalAcc=0.7500 F1=0.7179 (47 epochs)
+Set_2: AUC=0.9750 Acc=0.9250 BalAcc=0.9250 F1=0.9231 (35 epochs)
+Set_3: AUC=0.8384 Acc=0.7500 BalAcc=0.7475 F1=0.7727 (39 epochs)
+{
+ "acc": {
+  "mean": 0.8125,
+  "std": 0.08003905296791063
+ },
+ "auc": {
+  "mean": 0.9034327651515152,
+  "std": 0.07027887462403481
+ },
+ "balanced_acc": {
+  "mean": 0.817739898989899,
+  "std": 0.07412129690708501
+ },
+ "sen": {
+  "mean": 0.852840909090909,
+  "std": 0.0480877888229881
+ },
+ "spe": {
+  "mean": 0.7826388888888889,
+  "std": 0.12153174596696031
+ },
+ "f1": {
+  "mean": 0.8193473193473193,
+  "std": 0.07933545116526616
+ }
+}
+
+### exit=0 duration=59s

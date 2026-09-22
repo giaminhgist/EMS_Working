@@ -1,4 +1,4 @@
-"""Figures 02 — the 45 hand-crafted features.
+"""Figure 3 — HC vs SZ effect sizes for the 45 hand-crafted features.
 
 Statistical unit: SUBJECT-level aggregation of each feature over valid
 stimuli (mean), n=80 per group — never individual fixations or
@@ -28,7 +28,7 @@ from common import (FIG, TAB, HC_COLOR, SZ_COLOR, FEATURE_NAMES,  # noqa: E402
                     FEATURE_GROUPS, feature_group_of, savefig,
                     load_subject_features, load_metadata)
 
-OUT = FIG / "02_features"
+OUT = FIG
 CAT_ORDER = ["social", "natural", "synthetic", "manipulated"]
 
 meta = load_metadata()
@@ -48,67 +48,7 @@ def welch_d(a, b):
 
 
 # --------------------------------------------------------------------- #
-# F02.01 feature overview (formulas + group table)
-# --------------------------------------------------------------------- #
-def fig_feature_overview():
-    fig, axes = plt.subplots(1, 2, figsize=(13.8, 4.6),
-                             gridspec_kw={"width_ratios": [1.1, 1]})
-    ax = axes[0]
-    # toy scanpath illustrating spa_dispersion / geo_scanpath_len / tem_dur_mean
-    rng = np.random.default_rng(3)
-    pts = np.array([[150, 380], [280, 260], [430, 330], [610, 240], [700, 420],
-                    [560, 560], [820, 520], [880, 300]])
-    dur = np.array([220, 180, 260, 210, 300, 240, 280, 250])
-    ax.plot(pts[:, 0], pts[:, 1], "-", color="#333333", lw=1.4, zorder=2)
-    ax.scatter(pts[:, 0], pts[:, 1], s=dur * 0.12, color=HC_COLOR, alpha=0.8,
-               zorder=3)
-    centroid = pts.mean(0)
-    ax.scatter(*centroid, marker="x", s=80, color=SZ_COLOR, zorder=4)
-    for p in pts:
-        ax.plot([p[0], centroid[0]], [p[1], centroid[1]], "--", color="#999999",
-                lw=0.8, zorder=1)
-    step = pts[2:3]
-    ax.annotate("saccade\namplitude\n(p₃→p₄)",
-                xy=(0.5 * (pts[2] + pts[3])[0], 0.5 * (pts[2] + pts[3])[1] - 40),
-                fontsize=8, ha="center", color="#333333")
-    ax.annotate("spa_dispersion = mean of dashed distances",
-                xy=(150, 665), fontsize=8.5, color=SZ_COLOR)
-    ax.annotate("geo_scanpath_len = Σ successive distances (px)",
-                xy=(150, 630), fontsize=8.5, color="#333333")
-    ax.annotate("tem_dur_mean = mean fixation duration (dot size ∝ duration)",
-                xy=(150, 595), fontsize=8.5, color=HC_COLOR)
-    ax.set_xlim(40, 1000)
-    ax.set_ylim(680, 150)
-    ax.set_title("(a) How a few key features are computed\n(one stimulus, one subject)",
-                 fontsize=10.5)
-    ax.set_xticks([])
-    ax.set_yticks([])
-    # (b) grouped table of the 45 features
-    ax = axes[1]
-    ax.axis("off")
-    ax.set_title("(b) The 45 features per (subject, stimulus)", fontsize=10.5)
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0, 10)
-    rows = [
-        ("spa_pos", "Position & dispersion (7)", "fix count, mean/std x/y, dispersion, bbox area"),
-        ("spa_center", "Center & regions (10)", "center distance/frac, quadrants q1–q4, grid entropy"),
-        ("geo", "Scanpath geometry (10)", "scanpath length, saccade amp mean/std/max, angle var, revisit rate, hull area"),
-        ("tem", "Temporal (11)", "duration mean/std/total/max, first/last, IFI proxy, velocity proxy, fix rate, occupancy entropy"),
-        ("pup", "Pupil (7)", "mean/std/min/max/median, slope over time, first-last diff"),
-    ]
-    y = 9.2
-    for key, title, desc in rows:
-        ax.add_patch(plt.Rectangle((0.2, y - 0.62), 0.34, 1.24,
-                                   facecolor=plt.cm.tab10(list(FEATURE_GROUPS).index(key)),
-                                   alpha=0.85))
-        ax.text(1.0, y, title, fontsize=9.5, va="center", fontweight="bold")
-        ax.text(1.0, y - 0.38, desc, fontsize=8, va="center", color="#333333")
-        y -= 1.85
-    savefig(fig, OUT, "F02.01_feature_overview")
-
-
-# --------------------------------------------------------------------- #
-# F02.02 HC vs SZ effect sizes + rainclouds + category profiles
+# Figure 3 — HC vs SZ effect sizes + rainclouds + category profiles
 # --------------------------------------------------------------------- #
 def fig_effect_sizes():
     S = subject_level().reindex(columns=FEATURE_NAMES)
@@ -212,13 +152,12 @@ def fig_effect_sizes():
              "category — per-subject category means, HC vs SZ",
              fontsize=10.5, ha="left", va="bottom")
 
-    savefig(fig, OUT, "F02.02_effect_sizes")
+    savefig(fig, OUT, "Figure_3")
     es.to_csv(TAB / "T02.02_effect_sizes.csv")
     subj_cat.groupby(["category", "label"])[figs].agg(["mean", "sem"]) \
         .to_csv(TAB / "T02.03_category_profiles.csv")
 
 
 if __name__ == "__main__":
-    fig_feature_overview()
     fig_effect_sizes()
-    print("done 02_features")
+    print("done Figure_3 (effect sizes)")

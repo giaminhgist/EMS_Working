@@ -1,0 +1,18 @@
+{
+  "run_dir": "/root/EMS_Working/outputs/proposal/mlp_mean__seed42__foldSet_0__20260922-103917",
+  "best_epoch": 50,
+  "best_val_auc": 0.9772727272727273,
+  "val_metrics": {
+    "acc": 0.925,
+    "auc": 0.9772727272727273,
+    "balanced_acc": 0.9166666666666667,
+    "sen": 1.0,
+    "spe": 0.8333333333333334,
+    "f1": 0.9361702127659575,
+    "tp": 22,
+    "tn": 15,
+    "fp": 3,
+    "fn": 0
+  },
+  "epochs_trained": 81
+}

@@ -32,3 +32,37 @@ Set_3: AUC=0.9419 Acc=0.7750 BalAcc=0.7854 F1=0.7692 (110 epochs)
 }
 
 ### exit=0 duration=43s
+### EXP-PROP-006-s2024 started 2026-09-22T10:40:38
+$ python proposal/train.py --ablation mlp_deepset --comparator mlp --pool deepset --fold all --epochs 150 --patience 30 --seed 2024
+Set_0: AUC=0.9747 Acc=0.9250 BalAcc=0.9217 F1=0.9333 (40 epochs)
+Set_1: AUC=0.9167 Acc=0.8750 BalAcc=0.8854 F1=0.8571 (56 epochs)
+Set_2: AUC=0.9700 Acc=0.5000 BalAcc=0.5000 F1=0.0000 (31 epochs)
+Set_3: AUC=0.9167 Acc=0.6000 BalAcc=0.6364 F1=0.4286 (56 epochs)
+{
+ "acc": {
+  "mean": 0.725,
+  "std": 0.17940875118009156
+ },
+ "auc": {
+  "mean": 0.944520202020202,
+  "std": 0.02790406325699513
+ },
+ "balanced_acc": {
+  "mean": 0.7358743686868686,
+  "std": 0.1749568160819789
+ },
+ "sen": {
+  "mean": 0.5411931818181819,
+  "std": 0.41619802975767867
+ },
+ "spe": {
+  "mean": 0.9305555555555556,
+  "std": 0.07216878364870322
+ },
+ "f1": {
+  "mean": 0.5547619047619047,
+  "std": 0.3736426682505826
+ }
+}
+
+### exit=0 duration=115s

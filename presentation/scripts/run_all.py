@@ -1,14 +1,12 @@
 #!/usr/bin/env python
-"""Entry point — regenerate the full presentation figure suite.
+"""Entry point — regenerate the presentation figure suite (Figures 1-5).
 
-Usage (from the repo root, EMS-Project):
-    .venv/bin/python presentation/scripts/run_all.py [--groups 01,02,...] [--skip-cache]
+Usage (from the repo root):
+    .venv/bin/python presentation/scripts/run_all.py [--groups 01,02,05,06] [--skip-cache]
 
 Groups:
   01 dataset (raw fixations, cleaned; needs presentation/cache/fixations_cleaned.pkl)
   02 hand-crafted features
-  03 methodology diagrams
-  04 ablations
   05 latent distribution (needs cache/latent exports)
   06 importance + XAI (needs cache/latent exports)
 
@@ -26,15 +24,10 @@ REPO = Path(__file__).resolve().parents[2]
 SCRIPTS = Path(__file__).resolve().parent
 PY = sys.executable or str(REPO / ".venv" / "bin" / "python")
 
+# latent exports needed by the remaining figures (04/05 latent + importance)
 LATENT_RUNS = [
     ("mlp_norm01", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
     ("mlp_attn", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
-    ("mlp_mean", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
-    ("z_mean", 42, ["Set_0", "Set_1", "Set_2", "Set_3"]),
-    ("sub_attn", 42, ["Set_0"]),
-    ("zsub_attn", 42, ["Set_0"]),
-    ("mahal_mean", 42, ["Set_0"]),
-    ("diff_mean", 42, ["Set_0"]),
 ]
 
 
@@ -48,7 +41,7 @@ def run(cmd):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--groups", default="01,02,03,04,05,06,07",
+    ap.add_argument("--groups", default="01,02,05,06",
                     help="comma-separated figure groups to regenerate")
     ap.add_argument("--force-cache", action="store_true",
                     help="rebuild fixation cache even if present")
@@ -69,8 +62,6 @@ def main():
     scripts = {
         "01": "make_dataset_figs.py",
         "02": "make_feature_figs.py",
-        "03": "make_methodology_figs.py",
-        "04": "make_ablation_figs.py",
         "05": "make_latent_figs.py",
         "06": "make_xai_figs.py",
     }
